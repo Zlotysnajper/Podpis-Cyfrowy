@@ -25,7 +25,7 @@ def generate_keys():
     )
     with open('public_key.pem', 'wb') as f:
         f.write(public_pem)
-    messagebox.showinfo('RSA Key Generation', 'Keys generated successfully!')
+    messagebox.showinfo('Generacja kluczy RSA', 'Klucz prywatny został wygenerowany i zapisany jako private_key.pem\nKlucz publiczny został wygenerowany i zapisany jako public_key.pem')
 
 def sign_file():
     filepath = filedialog.askopenfilename(filetypes=[('Text files', '*.txt')])
@@ -49,9 +49,9 @@ def sign_file():
             signature_file = filepath + '.sig'
             with open(signature_file, 'wb') as f:
                 f.write(signature)
-            messagebox.showinfo('File Signing', 'File signed successfully!')
+            messagebox.showinfo('Podpisywanie pliku', 'Podpisywanie pliku zakończone sukcesem')
         except Exception as e:
-            messagebox.showerror('Error', str(e))
+            messagebox.showerror('Błąd', 'Błąd podczas podpisywania pliku')
 
 def verify_signature():
     filepath = filedialog.askopenfilename(filetypes=[('Text files', '*.txt')])
@@ -73,25 +73,25 @@ def verify_signature():
                 ),
                 hashes.SHA256()
             )
-            messagebox.showinfo('Signature Verification', 'Signature is valid!')
+            messagebox.showinfo('Weryfikacja podpisu', 'Podpis jest prawidłowy')
         except Exception as e:
-            messagebox.showerror('Error', str(e))
+            messagebox.showerror('Weryfikacja podpisu', 'Podpis jest nieprawidłowy')
 
 # Tworzenie głównego okna programu
 window = tk.Tk()
-window.title('RSA File Signer')
-window.geometry("300x125")
+window.title('Podpisywanie plików RSA')
+window.geometry("350x125")
 
 # Przycisk do generowania kluczy
-generate_keys_button = tk.Button(window, text='Generate Keys', command=generate_keys)
+generate_keys_button = tk.Button(window, text='Generuj klucze', command=generate_keys)
 generate_keys_button.pack(pady=5)
 
 # Przycisk do podpisywania pliku
-sign_file_button = tk.Button(window, text='Sign File', command=sign_file)
+sign_file_button = tk.Button(window, text='Podpisz plik', command=sign_file)
 sign_file_button.pack(pady=5)
 
 # Przycisk do weryfikowania podpisu
-verify_signature_button = tk.Button(window, text='Verify Signature', command=verify_signature)
+verify_signature_button = tk.Button(window, text='Zweryfikuj podpis', command=verify_signature)
 verify_signature_button.pack(pady=5)
 
 window.mainloop()
